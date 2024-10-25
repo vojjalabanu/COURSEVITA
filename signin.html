@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <form id="loginForm" class="form">
+            <h1>Login</h1>
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required placeholder="Enter your username">
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+            </div>
+            <button onclick="login()" class="btn">Login</button>
+            <div id="error-message" class="error"></div>
+            <p>Don't have an account? <a href="#">Sign Up</a></p>
+        </form>
+    </div>
+    <script>
+        async function login() {
+            const username = Document.getElementById(username).value;
+            const password = Document.getElementById(password).value;
+            const response = await fetch("http://localhost:9999/login", {
+                method:'POST',
+                headers:{
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify({username:username, password:password}),
+            });
+            const data = await response.json();
+            if(data == "false")
+            document.getElementById("error-message").value =data;
+            else document.getElementById("error-message").value = data;
+        }
+    </script>
+</body>
+</html>
